@@ -1,0 +1,32 @@
+{
+  "name": "bucket_list_api",
+  "version": "1.0.0",
+  "description": "This is a a to do list api that allows you to create, update, delete, save and look up all your to do lists.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/darlingtim/bucket_list api"
+  },
+  "keywords": [
+    "bucket",
+    "list",
+    "list",
+    "to",
+    "do"
+  ],
+  "dependencies": {
+    "express": "*",
+    "mongoose": "*",
+    "bcryptjs": "*",
+    "cors": "*",
+    "jsonwebtoken": "*",
+    "body-parser": "*",
+    "passport": "*",
+    "passport-jwt": "*"
+  },
+  "author": "Timothy Ododo",
+  "license": "ISC"
+}
