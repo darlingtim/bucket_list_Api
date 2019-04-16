@@ -33,15 +33,16 @@ module.exports.getAllBucketlists = (username, callback)=>{
 }
 
 //gets a single bucketlist of a user by its ID
-module.exports.getSingleBucketlistById = (userName, bucketlist_Id, callback)=>{
-    const query = {created_by:username, _id:bucketlist_Id}
+module.exports.getSingleBucketlistById = (username, bucketlistId, callback)=>{
+    const query = {created_by:username, _id: bucketlistId,}
     bucketlist.findOne(query, callback);
 }
 
 //filters bucketlists by name input on the fly
 module.exports.getBucketlistByInputName = (username, nameInputed, callback )=>{
-    const query = {created_by:username, name:{ $regex:`/${nameInputed}/`}};
-    bucketlist.find(query, callback);
+    const query = {created_by:username, name:`${nameInputed}`,};
+    bucketlist.findOne(query, callback);
+        
 
 }
 
@@ -60,6 +61,6 @@ const query = {_id:bucketlist_Id, };
 }
 
 //deletes one bucketlist by its Id 
-module.exports.deleteBucketlistById = (bucketlist_Id, callback)=>{
-    bucketlist.findByIdAndDelete(bucketlist_id, callback);
+module.exports.deleteBucketlistById = (bucketlistId, callback)=>{
+    bucketlist.findByIdAndDelete(bucketlistId, callback);
 }

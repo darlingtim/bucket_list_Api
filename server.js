@@ -22,6 +22,7 @@ mongoose.connection.on('error', (err) => {
 
 const app = express();
 const router = express.Router();
+app.use(express.query())
 
 const api = require('./routes/api');
 const user =require('./routes/user');
@@ -48,10 +49,10 @@ app.use(passport.session());
 require('./config/passport')(passport);
 
 // route direction
-app.use('/v1/api', api);
+app.use('/v1/api', passport.authenticate('jwt', { session: false }), api);
 app.use('/user', user);
 app.use('/auth', auth);
-app.use('/bucketlists', passport.authenticate('jwt', {session:false}), bucketlists)
+//app.use('/bucketlists', passport.authenticate('jwt', {session:false}), bucketlists)
 
 // Index Route
 app.get('/', (req, res) => {
