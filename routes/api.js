@@ -49,28 +49,24 @@ router.get('/validate', (req, res, next) => {
 
 
 //Route to view all created Bucketlist by a given user and search by inputed value
-router.get('/bucketlists', (req, res, next) => {
-    const username = req.user.username;
-    //get bucketlist by inputed value
-    if(req.query.q){
-        const bucketlistName = req.query.q;
-        bucketlist.getBucketlistByInputName(username, bucketlistName, (err, bucketLists) => {
-            if (err) { console.error(err); }
-            else { res.send(bucketLists); }
+router.get('/bucketlists', (req, res) => {
+    if (req.query.q) {
+        bucketlist.getBucketlistByInputName(req.user.username, req.query.q, (err, result) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            res.send(result);
+        });
+    } else {
+        bucketlist.getAllBucketlists(req.user.username, (err, result) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            res.send(result);
         });
     }
-
-    else{bucketlist.getAllBucketlists(username, (err, bucketLists) => {
-        if (err) {
-            console.error(err);
-        }
-        if (bucketLists.length <= 0) {
-            res.send(req.user.name + ', Sorry you dont have a bucketList yet. Please create one!');
-        }
-        else {
-            res.send(bucketLists);
-        }
-    })}
 });
 
 
@@ -86,48 +82,39 @@ router.get('/bucketlists', (req, res, next) => {
 });*/
 
 // Route to create bucketLists
-router.post('/bucketlists', (req, res, next) => {
-    let newBucketlist = new bucketlist({
-        name: req.body.name,
-        created_by: req.user.username
-    });
-    bucketlist.createBucketlist(newBucketlist, (err, list) => {
+router.post('/bucketlists', (req, res) => {
+    bucketlist.createBucketlist(req.body, (err, result) => {
         if (err) {
             console.error(err);
+            return;
         }
-        else {
-            res.send('New BucketList ' + list.name + ' was Successfully created')
-            //res.redirect()
-        }
+        res.send(result);
     });
 });
 
-router.put('/bucketlists/:bucketId/items/', (req, res, next) => {
-    const newItem = {
-        name: req.body.name,
-        done: req.body.done
-    };
-    const bucketlistId = req.body.bucketlistId;
-
-    bucketlist.addBucketlistItem(bucketlistId, newItem, (err, result) => {
-        if (err) { console.error(err); }
-        else { res.send(result); }
-    })
+router.put('/bucketlists/:bucketId/items/', (req, res) => {
+    bucketlist.addBucketlistItem(req.body.bucketlistId, req.body, (err, result) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        res.send(result);
+    });
 })
 
 // route for deleting a single bucketlist by its Id
-router.delete('/bucketlists/:bucketlistId', (req, res, next) => {
-    const bucketlistId = req.params.bucketlistId;
-    bucketlist.deleteBucketlistById(bucketlistId, (err, result) => {
-        if (err) { console.error(err); }
-        else { res.send(result) }
+router.delete('/bucketlists/:bucketlistId', (req, res) => {
+    bucketlist.deleteBucketlistById(req.params.bucketlistId, (err, result) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        res.send(result);
     });
 });
 
-router.get('/bucketlists/:bucketlistId', (req, res, next) => {
-    const bucketlistId = req.params.bucketlistId;
-    console.log(bucketlistId);
-    bucketlist.getSingleBucketlistById(req.user.username, bucketlistId, (err, result) => {
+router.get('/bucketlists/:bucketlistId', (req, res) => {
+    bucketlist.getSingleBucketlistById(req.user.username, req.params.bucketlistId, (err, result) => {
         if (err) { console.error(err); }
         else { res.send(result) }
     })
