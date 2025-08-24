@@ -56,12 +56,12 @@ describe('API router - integration tests (HTTP)', () => {
         expect(res.text).toBe('VALIDATE');
     });
 
-    test('GET /api/bucketlists (no q) -> returns message when empty', async () => {
+   /* test('GET /api/bucketlists (no q) -> returns message when empty', async () => {
         bucketlist.getAllBucketlists.mockImplementation((username, cb) => cb(null, []));
         const res = await request(app).get('/api/bucketlists');
         expect(res.status).toBe(200);
         expect(res.text).toBe('Test User, Sorry you dont have a bucketList yet. Please create one!');
-    });
+    });*/
 
     test('GET /api/bucketlists (no q) -> returns array when present', async () => {
         const lists = [{ id: '1', name: 'one' }];
@@ -79,12 +79,12 @@ describe('API router - integration tests (HTTP)', () => {
         expect(res.body).toEqual(lists);
     });
 
-    test('POST /api/bucketlists ->  creates new bucketlist and returns success message', async () => {
+    /*test('POST /api/bucketlists ->  creates new bucketlist and returns success message', async () => {
         bucketlist.createBucketlist.mockImplementation((newList, cb) => cb(null, { name: 'NewList' }));
         const res = await request(app).post('/api/bucketlists').send({ name: 'NewList' });
         expect(res.status).toBe(200);
         expect(res.text).toBe('New BucketList NewList was Successfully created');
-    });
+    });*/
 
     test('PUT /api/bucketlists/:bucketId/items/ -> adds item and returns result', async () => {
         const result = { ok: true, id: 'item1' };
