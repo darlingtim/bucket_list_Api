@@ -29,7 +29,7 @@ const router = express.Router();
 const api = require('./routes/api');
 const user =require('./routes/user');
 const auth = require('./routes/auth');
-const bucketlists = require('./routes/bucketlists');
+//const bucketlists = require('./routes/bucketlists');
 //Port Number
 const port = 3000;
 
@@ -51,7 +51,7 @@ app.use(passport.session());
 require('./config/passport')(passport);
 
 // route direction
-app.use('/v1/api', passport.authenticate('jwt', { session: false }), api);
+app.use('/api', passport.authenticate('jwt', { session: false }), api);
 app.use('/user', user);
 app.use('/auth', auth);
 //app.use('/bucketlists', passport.authenticate('jwt', {session:false}), bucketlists)
@@ -80,7 +80,7 @@ const options = {
   apis: ["./routes/*.js"], // Path to your route files with JSDoc comments
 };
 
-const specs = swaggerJsdoc(options);
+const swaggerSpec = swaggerJsdoc(options);
 
 // Serve Swagger docs at /docs
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
@@ -91,4 +91,4 @@ app.listen(port, () => {
 
 });
 
-module.exports = app; // for testing 
+//module.exports = app; // for testing 
