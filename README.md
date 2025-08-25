@@ -19,6 +19,8 @@ A RESTful API that lets users **register**, **authenticate**, and perform **CRUD
 - [Contributing](#contributing)  
 - [License](#license)  
 - [Author](#author)  
+- [API Documentation](#documentation)
+
 
 ## Features
 - User registration and login  
@@ -162,5 +164,9 @@ export default {
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Author
-**[darlingtim](https://github.com/darlingtim)**  
+**[Timothy Ododo](https://github.com/darlingtim)**  
 Repository: [https://github.com/darlingtim/bucket_list_Api](https://github.com/darlingtim/bucket_list_Api)
+
+## Documentation
+For full API reference, check out the [API Documentation](./docs/API-docs.md).
+
