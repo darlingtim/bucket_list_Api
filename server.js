@@ -6,6 +6,8 @@ const passport = require('passport');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./config/database');
+const swaggerUi = require("swagger-ui-express");
+const swaggerJsdoc = require("swagger-jsdoc");
 
 // connect to Database
 mongoose.connect(config.database, {useNewUrlParser:true});
@@ -59,8 +61,34 @@ app.get('/', (req, res) => {
     res.send('Invalid end Point');
 });
 
+// Swagger config
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Bucket List API",
+      version: "1.0.0",
+      description: "API documentation for the Bucket List project",
+    },
+    servers: [
+      {
+        url: process.env.BASE_URL || "http://localhost:3000",
+        description: "API Server", // Change if using another port
+      },
+    ],
+  },
+  apis: ["./routes/*.js"], // Path to your route files with JSDoc comments
+};
+
+const specs = swaggerJsdoc(options);
+
+// Serve Swagger docs at /docs
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 // start server
 app.listen(port, () => {
     console.log('server started on port ' + port);
 
 });
+
+module.exports = app; // for testing 
