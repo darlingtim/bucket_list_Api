@@ -24,7 +24,7 @@ mongoose.connection.on('error', (err) => {
 
 const app = express();
 const router = express.Router();
-app.use(express.query())
+
 
 const api = require('./routes/api');
 const user =require('./routes/user');
