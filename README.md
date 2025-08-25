@@ -167,6 +167,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 **[Timothy Ododo](https://github.com/darlingtim)**  
 Repository: [https://github.com/darlingtim/bucket_list_Api](https://github.com/darlingtim/bucket_list_Api)
 
-## 📖 Documentation
+## Documentation
 For full API reference, check out the [API Documentation](./docs/API-docs.md).
 
